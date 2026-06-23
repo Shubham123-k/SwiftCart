@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^7.5.7",
-    "@neondatabase/serverless": "^1.1.0",
     "@prisma/client": "^6.19.3",
     "@reduxjs/toolkit": "^2.8.2",
     "date-fns": "^4.1.0",
