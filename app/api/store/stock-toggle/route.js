@@ -33,7 +33,7 @@ export async function POST(request) {
             data: {inStock: !product.inStock}
         })
 
-        return NextResponse.json({message: "Product stock updated successfully"}, {status: 400})
+        return NextResponse.json({message: "Product stock updated successfully"})
 
     } catch (error) {
         console.error(error);

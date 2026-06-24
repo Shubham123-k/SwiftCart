@@ -6,8 +6,8 @@ import { NextResponse } from "next/server";
 export async function GET(request) {
     try {
         // Get store username from query params
-        const { searchParmas } = new URL(request.url)
-        const username = searchParmas.get('username').toLowerCase();
+        const { searchParams } = new URL(request.url)
+        const username = searchParams.get('username').toLowerCase();
 
         if(!username) {
             return NextResponse.json({error: "missing uername"}, {status: 400})

@@ -10,27 +10,34 @@ export async function GET(request) {
         const { userId } = getAuth(request);
         const storeId = await authSeller(userId);
 
+        if (!storeId) {
+            return NextResponse.json(
+                { error: "not authorized" },
+                { status: 401 }
+            );
+        }
+
         // Get all order for seller
-        const orders = await prisma.order.findMany({where: {storeId}})
+        const orders = await prisma.order.findMany({ where: { storeId } })
 
         // Get all products with rating for seller
-        const products = await prisma.product.findMany({where: {storeId}})
+        const products = await prisma.product.findMany({ where: { storeId } })
 
-        const rating = await prisma.rating.findMany({
-            where: {productId: {in: product.map(product => product.id)}},
-            include: {user: true, product: true}
+        const ratings = await prisma.rating.findMany({
+            where: { productId: { in: products.map(product => product.id) } },
+            include: { user: true, product: true }
         })
 
         const dashboardData = {
             ratings,
             totalOrders: orders.length,
-            totalEarnings: Math.round(orders.reduce((acc, order)=> acc + order.total, 0)),
+            totalEarnings: Math.round(orders.reduce((acc, order) => acc + order.total, 0)),
             totalProducts: products.length
         }
 
         return NextResponse.json({ dashboardData });
     } catch (error) {
         console.error(error);
-        return NextResponse.json({error: error.code || error.message}, {status: 400})
+        return NextResponse.json({ error: error.code || error.message }, { status: 400 })
     }
 }

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { PackageIcon, Search, ShoppingCart } from "lucide-react";
 import Image from "next/image";
@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useUser, useClerk, UserButton } from "@clerk/nextjs";
+import { useUser, useClerk, UserButton, Protect } from "@clerk/nextjs";
 
 const Navbar = () => {
   const { user } = useUser();
@@ -26,7 +26,6 @@ const Navbar = () => {
     <nav className="relative bg-white">
       <div className="mx-6">
         <div className="flex items-center justify-between max-w-7xl mx-auto py-4">
-
           {/* Logo */}
           <Link
             href="/"
@@ -40,15 +39,15 @@ const Navbar = () => {
               className="w-auto h-auto"
               priority
             />
-
-            <p className="absolute text-xs font-semibold -top-2 -right-8 px-3 py-0.5 rounded-full flex items-center gap-2 text-white bg-green-500">
-              plus
-            </p>
+            <Protect plan='plus'>
+              <p className="absolute text-xs font-semibold -top-2 -right-8 px-3 py-0.5 rounded-full flex items-center gap-2 text-white bg-green-500">
+                plus
+              </p>
+            </Protect>
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden sm:flex items-center gap-4 lg:gap-8 text-slate-600">
-
             <Link href="/">Home</Link>
             <Link href="/shop">Shop</Link>
             <Link href="/about">About</Link>
