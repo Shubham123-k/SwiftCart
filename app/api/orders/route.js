@@ -3,11 +3,13 @@ import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { PaymentMethod } from "@prisma/client"
 import Stripe from "stripe";
+import { syncUser } from "@/lib/syncUser";
 
 
 export async function POST(request) {
     try {
         const { userId, has } = getAuth(request) 
+        await syncUser(userId);
         if(!userId) {
             return NextResponse.json({ error: "not authorized" }, { status: 401 })
         }

@@ -1,12 +1,14 @@
 import prisma from "@/lib/prisma"
 import { getAuth } from "@clerk/nextjs/server"
 import { NextResponse } from "next/server"
+import { syncUser } from "@/lib/syncUser";
 
 
 // Add new address
 export async function POST(request) {
     try {
         const { userId } = getAuth(request)
+        await syncUser(userId);
         const {address} = await request.json()
 
         address.userId = userId

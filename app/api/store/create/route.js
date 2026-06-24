@@ -2,11 +2,13 @@ import imagekit from "@/configs/imageKit";
 import prisma from "@/lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { syncUser } from "@/lib/syncUser";
 
 // create the store
 export async function POST(request){
     try {
         const {userId} = getAuth(request)
+        await syncUser(userId);
         // Get the data from the form
         const formData = await request.formData()
 

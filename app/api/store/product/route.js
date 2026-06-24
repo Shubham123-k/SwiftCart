@@ -3,12 +3,14 @@ import prisma from "@/lib/prisma";
 import authSeller from "@/middlewares/authSeller";
 import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { syncUser } from "@/lib/syncUser";
 
 
 // Add a new product
 export async function POST(request) {
     try {
         const { userId } = getAuth(request)
+        await syncUser(userId);
         const storeId = await authSeller(userId)
 
         if (!storeId) {
