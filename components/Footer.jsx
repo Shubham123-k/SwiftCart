@@ -34,7 +34,7 @@ const Footer = () => {
         {
             title: "CONTACT",
             links: [
-                { text: "shubhamkbind69@gmail.com", path: '/', icon: MailIcon },
+                { text: "adminswiftcart@gmail.com", path: '/', icon: MailIcon },
                 { text: "+91 8081279629", path: '/', icon: PhoneIcon },
                 { text: "Lucknow, Uttar Pradesh", path: '/', icon: MapPinIcon }
             ]
